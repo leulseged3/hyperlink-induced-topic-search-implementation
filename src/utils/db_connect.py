@@ -1,10 +1,10 @@
 import psycopg2
 
-def create_connection():
-  DB_NAME = 'ewupcyuy'
-  DB_USER = 'ewupcyuy'
-  DB_PASSWORD = 'AcIwKA4-9kJww5JfWGucnj3ime1caG1l'
-  DB_HOST = 'horton.db.elephantsql.com'
+def create_connection(dbName):
+  DB_NAME = dbName
+  DB_USER = 'postgres'
+  DB_PASSWORD = 'password'
+  DB_HOST = 'localhost'
   DB_PORT = '5432'
 
   try:
