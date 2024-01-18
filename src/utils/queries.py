@@ -8,11 +8,11 @@ create_topics_table_query = '''
 create_news_table_query = '''
   CREATE TABLE IF NOT EXISTS news (
       id SERIAL PRIMARY KEY,
-      author VARCHAR(255) NOT NULL,
-      title VARCHAR(255) NOT NULL,
-      description VARCHAR(255) NOT NULL,
-      url VARCHAR(255) NOT NULL,
-      urlToImage VARCHAR(255) NOT NULL,
+      author VARCHAR(255),
+      title TEXT,
+      description TEXT,
+      url VARCHAR(512),
+      urlToImage VARCHAR(512),
       publishedAt TIMESTAMP,
       content TEXT,
       topic_id INTEGER,
@@ -20,7 +20,26 @@ create_news_table_query = '''
   );
   '''
 
-insert_topics_query = '''
-    INSERT INTO topics (name)
-    VALUES ('technology'), ('science'), ('politics'), ('entertainment'), ('health'), ('business'), ('sports');
+insert_news = ''' 
+    INSERT INTO news (author, title, description, url, urlToImage, publishedAt, content, topic_id)
+      VALUES %s
     '''
+insert_first_topics_query = '''
+    INSERT INTO topics (name)
+    VALUES ('technology'), ('science'), ('politics'), ('entertainment');
+    '''
+
+insert_second_topics_query = '''
+    INSERT INTO topics (name)
+    VALUES ('health'), ('business'), ('sports');
+    '''
+
+fetch_topics = '''
+SELECT id, name
+FROM topics;
+'''
+def fetchTopic(topic):
+  return  f'''SELECT id, name FROM topics WHERE name = '{topic}' '''
+
+def fetchNews(topicId):
+  return  f'''SELECT * FROM news WHERE topic_id = {topicId}'''
